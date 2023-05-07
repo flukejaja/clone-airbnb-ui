@@ -36,7 +36,7 @@ function Item() {
         );
     }
 
-    const ar = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+    const ar = Array.from({length: 100}, (_, i) => i + 1)
     const img = ['https://a0.muscache.com/im/pictures/miso/Hosting-32587907/original/cb6e9f82-38dd-4de7-97be-52568c27273a.jpeg?im_w=720', 'https://a0.muscache.com/im/pictures/23a65126-0d2b-41bb-92a6-f5204ed273be.jpg?im_w=720', 'https://a0.muscache.com/im/pictures/5c0313fa-6461-41b5-9acf-aacafc62ca2e.jpg?im_w=720']
     return (
         <div className="py-10 grid grid-cols-1 gap-4 auto-cols-max lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 xxs:grid-cols-1">
@@ -48,7 +48,7 @@ function Item() {
                             <Slider {...settings}  >
                                 {
                                     img.map((x, i) => <div key={i} className="relative outline-none h-64  ">
-                                        <img className="rounded-xl object-cover h-full" alt="photo" src={x} />
+                                        <img className="rounded-xl object-cover h-full w-full" alt="photo" src={x} />
                                     </div>)
                                 }
                             </Slider>

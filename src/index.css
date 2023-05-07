@@ -32,6 +32,15 @@
   animation-duration: 350ms;
 }
 
+.custom-modal {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.custom-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;

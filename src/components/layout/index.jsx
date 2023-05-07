@@ -1,6 +1,6 @@
 
 import { TfiWorld, TfiAlignJustify } from "react-icons/tfi";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineHeart } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import Category from "../category";
 import { useState, useEffect } from 'react';
@@ -11,31 +11,11 @@ import { Dropdown, Space } from "antd";
 import 'antd/dist/reset.css';
 import { RiMenuAddFill } from "react-icons/ri";
 import { Calendar, theme } from 'antd';
+import Authpage from "../auth/Authpage";
 const onPanelChange = (value, mode) => {
     console.log(value.format('YYYY-MM-DD'), mode);
 };
-const items = [
-    {
-        label: <a className="font-bold">ลงทะเบียน</a>,
-        key: '0',
-    },
-    {
-        label: <a>เข้าสู่ระบบ</a>,
-        key: '1',
-    },
-    {
-        type: 'divider',
-    },
-    {
-        label: 'ให้เช่าที่พักกับ Airbnb',
-        key: '3',
-        className: 'truncate'
-    },
-    {
-        label: 'ช่วยเหลือ',
-        key: '4',
-    },
-];
+
 
 function Navbar() {
     const [scrollPosition, setScrollPosition] = useState(window.scrollY);
@@ -86,6 +66,33 @@ function Navbar() {
         border: `1px solid ${token.colorBorderSecondary}`,
         borderRadius: token.borderRadiusLG,
     };
+    const [openModalLogin, setModalLogin] = useState(false)
+    const handleOpenModalLogin = () => setModalLogin(!openModalLogin)
+
+    const items = [
+        {
+            label: <a className="font-bold">ลงทะเบียน</a>,
+            key: '0',
+            onClick: () => handleOpenModalLogin()
+        },
+        {
+            label: <a>เข้าสู่ระบบ</a>,
+            key: '1',
+            onClick: () => handleOpenModalLogin()
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: 'ให้เช่าที่พักกับ Airbnb',
+            key: '3',
+            className: 'truncate'
+        },
+        {
+            label: 'ช่วยเหลือ',
+            key: '4',
+        },
+    ];
     useEffect(() => {
         const handleScroll = () => {
             setScrollPosition(window.scrollY);
@@ -165,10 +172,10 @@ function Navbar() {
                                     <p>ใคร</p>
                                     <input type="text" className="bg-transparent outline-none" placeholder="เพิ่มผู้เข้าพัก" />
                                 </div>
-                                <div className={`${showSubNavbar == 3 ? 'w-1/2 ' : 'w-fit' }  px-2 text-white rounded-full h-[30px]  bg-[#ff385c] items-center flex justify-center text-lg `}>
+                                <div className={`${showSubNavbar == 3 ? 'w-1/2 ' : 'w-fit'}  px-2 text-white rounded-full h-[30px]  bg-[#ff385c] items-center flex justify-center text-lg `}>
                                     <AiOutlineSearch />
                                     {showSubNavbar == 3 && <p className="text-xs ">ค้นหา</p>}
-                                    </div>
+                                </div>
                             </div>
                             {showSubNavbar !== 0 && <div>
                                 {showSubNavbar == 1 && <div className="absolute top-20 inset-x-0 bg-white rounded-xl w-[35rem] px-10 py-10">
@@ -217,24 +224,38 @@ function Navbar() {
                         }
                     </div>
                 </div>
-                        <div className="md:hidden flex h-20 py-3.5 justify-center items-center px-5 ">
-                            <div className="flex flex-row w-full h-full rounded-full items-center justify-center py-2 border px-4">
-                                <div className="w-1/6"><AiOutlineSearch/></div>
-                                <div className="w-4/6 flex flex-col text-sm"><p>ที่ไหนก็ได้</p><input type="text"  className="outline-none" placeholder="สัปดาห์ ทุกเวลา . เพิ่มผู้เข้าพัก"/></div>
-                                <div className=" flex justify-center items-center border rounded-full h-8 w-8"><RiMenuAddFill/></div>
-                            </div>
-                        </div>
+                <div className="md:hidden flex h-20 py-3.5 justify-center items-center px-5 ">
+                    <div className="flex flex-row w-full h-full rounded-full items-center justify-center py-2 border px-4">
+                        <div className="w-1/6"><AiOutlineSearch /></div>
+                        <div className="w-4/6 flex flex-col text-sm"><p>ที่ไหนก็ได้</p><input type="text" className="outline-none" placeholder="สัปดาห์ ทุกเวลา . เพิ่มผู้เข้าพัก" /></div>
+                        <div className=" flex justify-center items-center border rounded-full h-8 w-8"><RiMenuAddFill /></div>
+                    </div>
+                </div>
                 <Category />
             </div>
-           
-            <div id="body" className={`bg-white ${!changeShow && 'px-20'}  ${changeNavbar && 'blur-sm '} `} onClick={() => setChangeNavbar(false)} >
+            <div id="body" className={`bg-white ${!changeShow && 'px-12 md:px-20'}  ${changeNavbar && 'blur-sm '} `} onClick={() => setChangeNavbar(false)} >
                 <div className={` ${changeNavbar && 'pointer-events-none'} `}>{!changeShow ? <Item /> : <Map />} </div>
             </div>
-            <div onClick={() => setChangeShow(!changeShow)} className=" transition ease-in-out delay-150 hover:scale-110 duration-300
-            flex items-center space-x-2 cursor-pointer fixed left-1/2 transform -translate-x-1/2 bottom-10 px-5 py-3 bg-black text-white rounded-full z-40">
+            <div onClick={() => setChangeShow(!changeShow)} className={`${scrollPosition == 0 && window.innerWidth <= 768 ? 'hidden' : 'flex'} transition ease-in-out delay-150 hover:scale-110 duration-300
+             items-center space-x-2 cursor-pointer fixed left-1/2 transform -translate-x-1/2 bottom-10 px-5 py-3 bg-black text-white rounded-full z-40`}>
                 <div>{!changeShow ? 'แสดงแผนที่' : 'แสดงรายการ'} </div>
                 <div>{!changeShow ? <BsMapFill /> : <TfiAlignJustify />} </div>
             </div>
+            <div className={`${scrollPosition == 0 ? 'h-14' : 'h-0'} z-[1001] transition-all duration-300 flex md:hidden fixed inset-x-0 bottom-0 w-full bg-white  justify-center items-center space-x-5 text-gray-400 text-xl`}>
+                {scrollPosition === 0 && <div className="flex flex-col justify-center items-center">
+                    <AiOutlineSearch />
+                    <label className="text-xs">สำรวจ</label>
+                </div>}
+                {scrollPosition === 0 && <div className="flex flex-col justify-center items-center">
+                    <AiOutlineHeart />
+                    <label className="text-xs">Wishlist</label>
+                </div>}
+                {scrollPosition === 0 && <a href="/login" className="flex flex-col justify-center items-center" onClick={() => handleOpenModalLogin()}>
+                    <BsPersonCircle />
+                    <label className="text-xs">เข้าสู่ระบบ</label>
+                </a>}
+            </div>
+            <Authpage open={openModalLogin} handle={setModalLogin} />
         </div>
     )
 }
