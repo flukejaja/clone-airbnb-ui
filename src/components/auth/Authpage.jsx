@@ -69,7 +69,7 @@ function Authpage(props) {
                     <div className='w-2/6'>
                         <button onClick={closeModal} className="h-8 w-8 hover:bg-gray-200 rounded-full">&#10005;</button>
                     </div>
-                    <div className='w-2/6 truncate font-semibold '>เข้าสู่ระบบหรือลงทะเบียน</div>
+                    <div className='w-2/6 whitespace-nowrap font-semibold '>เข้าสู่ระบบหรือลงทะเบียน</div>
                     <div className='w-2/6'></div>
                 </div>
                 <div id='body' className='py-5 flex flex-col space-y-3'>
